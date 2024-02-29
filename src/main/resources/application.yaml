@@ -1,0 +1,35 @@
+
+spring:
+  config:
+    activate:
+      on-profile: dev
+
+  jackson:
+    # Just making the response JSON body a bit prettier.
+    default-property-inclusion: "non_null"
+    # Alas, this won't work with Request params (still useful for JSON body).
+    # See: https://kdowbecki.github.io/Case-insentivie-enum-mapping-with-RequestParam/
+    mapper:
+      accept-case-insensitive-enums: true
+
+server:
+  port: 8089
+  # This ensures that the error messages are carried over in the JSON responses.
+  error:
+    include-message: always
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "env, health, info, loggers"
+  endpoint:
+    health:
+      show-details: always
+      probes:
+        enabled: true
+
+logging:
+  level:
+    org.springframework: warn
+    org.jetbrains.assignment: debug
